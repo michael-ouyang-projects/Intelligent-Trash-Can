@@ -419,7 +419,7 @@ IoT project
 		
 		* vim triggerTensorflow
 		``` bash
-		  //!/bin/bash
+		  #!/bin/bash
 
 		  time=`date "+%Y-%m-%d_%H:%M:%S"`
 
