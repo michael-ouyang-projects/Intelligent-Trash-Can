@@ -1,5 +1,5 @@
 # Intelligent-Trash-Can
-IoT project
+IoT project Using Raspberry Pi with Python and Bash
 
 ![alt text](../master/Intelligent-Trash-Can.jpg "Product Image")
 
