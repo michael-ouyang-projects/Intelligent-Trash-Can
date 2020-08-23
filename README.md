@@ -426,16 +426,12 @@
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage)	
-* [vim Identify.py](./python/Identify.py) (classify image by keywords and write the classified result in /srv/nfs/IoT/result)		
-* [vim SendMail.py](./python/SendMail.py) (notify us if the classified result is 'other')
-	I use my own mail server to send mail, you can use gmail if you want to.
-* [vim FetchMail.py](./python/FetchMail.py) (let us decide the final classified result)	
-		
+* [vim Identify.py](./python/Identify.py) (Classify image by keywords and write the classified result in /srv/nfs/IoT/result)		
+* [vim SendMail.py](./python/SendMail.py) (Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to)
+* [vim FetchMail.py](./python/FetchMail.py) (Let us decide the final classified result)		
 * sudo chown -R root:nfs /srv/nfs/IoT
-	
-* vim ~/bin/triggerTensorflow
-		
-		// add this line at the bottom of the file.<br />
+* vim ~/bin/triggerTensorflow (Add this line at the bottom of the file)
+
 	``` bash
 	  /home/michael/miniconda3/bin/python /srv/nfs/IoT/code/Identify.py /srv/nfs/IoT/picturesInfo/${time}.txt /srv/nfs/IoT/pictures/${time}.jpg
 	```
