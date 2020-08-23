@@ -38,7 +38,7 @@
 	
 ## Process
 
-> **To Remote Server (x86_64 GNU/Linux 4.4.0-116-generic)(Ubuntu 16.04.4 LTS xenial)**
+> **To Remote Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
 
 #### Install ssh
 
@@ -127,7 +127,7 @@
 		
 ----------------------------------------------------------------------
 
-* Raspberry pi (armv7l GNU/Linux 4.14.34-v7+) (2017-11-29-raspbian-stretch-lite)
+> **To Raspberry pi (armv7l GNU/Linux 4.14.34-v7+) (2017-11-29-raspbian-stretch-lite)**
 
 	* sudo apt-get update
 	
@@ -362,7 +362,7 @@
 	
 ----------------------------------------------------------------------
 	
-* Back to Remote Server
+> **To Remote Server**
 
 	// run as normal user if you install tensorflow as normal user.
 	* create script to automatically run tensorflow.
@@ -394,7 +394,7 @@
 		
 ----------------------------------------------------------------------
 
-* Back to Raspberry pi
+> **To Raspberry pi**
 
 	* cd ~/python_workspace/project
 	
@@ -420,7 +420,7 @@
 
 ----------------------------------------------------------------------
 			
-* Back to Remote Server
+> **To Remote Server**
 
 	* cd /srv/nfs/IoT/code
 	
@@ -455,14 +455,14 @@
 	
 ----------------------------------------------------------------------
 
-* Back to Raspberry pi
+> **To Raspberry pi**
 
 	* cd ~/python_workspace/project
 	
 	* [vim ShowRecognizeResult.py](./python/ShowRecognizeResult.py)
 		
 	
-	* vim PushButton.py
+	* [vim PushButton.py](./python/PushButton.py)
 	
     ``` python
       import ShowRecognizeResult
