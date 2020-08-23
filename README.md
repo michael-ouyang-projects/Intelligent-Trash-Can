@@ -28,131 +28,102 @@ IoT project Using Raspberry Pi with Python and Bash
 	
 ## Prepare
 
-	* Raspberry pi * 1
-	* Breadboard * 1
-	* Camera * 1
-	* led lights * 3
-	* buzzer * 1
-	* some jumper cable
-	* Cloud Server * 1
+	Raspberry pi * 1
+	Breadboard * 1
+	Camera * 1
+	led lights * 3
+	buzzer * 1
+	some jumper cable
+	Cloud Server * 1
 	
 	
 ## Process
 
 * Remote Server (x86_64 GNU/Linux 4.4.0-116-generic)(Ubuntu 16.04.4 LTS xenial)
 
-	* install ssh
-	
-		* sudo apt-get install openssh-server
-		
-		* you can change the service port in /etc/ssh/sshd_config.
-		
-		// if you already enable your firewall.
-		* sudo ufw allow 22 (or the port you change in previous step.)
-		
-		* sudo systemctl restart ssh
+#### install ssh
+
+	sudo apt-get install openssh-server (you can change the service port in /etc/ssh/sshd_config.)
+	sudo ufw allow 22 (or the port you change in previous step.)
+	sudo systemctl restart ssh
 		
 
-	* install nfs server
-	
-		* sudo apt-get install nfs-kernel-server nfs-common
-	
-		* sudo mkdir /srv/nfs
-		
-		* sudo mkdir /srv/nfs/IoT
-		
-		* sudo mkdir /srv/nfs/IoT/pictures
-		
-		* sudo mkdir /srv/nfs/IoT/picturesInfo
-		
-		* sudo mkdir /srv/nfs/IoT/code
-		
-		* sudo groupadd -g 2049 nfs
-		
-		// add user to nfs group
-		* usermod -aG nfs {your-normal-user}
-		
-		* logout && login (refresh the group setting)
-		
-		* sudo chown -R root:nfs /srv/nfs/IoT
-		
-		* sudo chmod -R 775 /srv/nfs/IoT
-		
-		* sudo vim /etc/exports
-		
-			// servers you want to share data with. (you can separate them with blank space.)<br />
-			// if your pi is after NAT, you should add insecure in the brackets in order to allow clients connect via ports that greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure)<br /><br />
-			/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
-		
-		// if you already enable your firewall.
-		* sudo ufw allow 111
-		
-		// if you already enable your firewall.
-		* sudo ufw allow 2049
-		
-		* sudo systemctl restart nfs-kernel-server
-		
-		// if you want to bring up this service when server startup.
-		* sudo systemctl enable nfs-kernel-server
-	
-	
-	// recommend run as normal user.
-	* install miniconda3
-	
-		* cd ~
-	
-		* wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-		
-		* bash Miniconda3-latest-Linux-x86_64.sh
-		
-		// you may export path by yourself by edit ~/.bashrc.<br />
-		// you can edit /etc/environment if you want to set global PATH.<br />
-		* let miniconda3 auto export PATH for you.
-		
-		* source .bashrc (reload .bashrc)
-		
-		// check that if you are using the right python. 
-		* which python
-			
-			// should show something like this.
-			'/home/{your-normal-user}/miniconda3/bin/python'.
-		
-		
-		* conda update conda
-		
-		* pip install --upgrade pip
-		
-	
-	// run as normal user if you install miniconda3 as normal user.
-	* install tensorflow
-	
-		* pip install numpy
-		
-		* pip install tensorflow
-		
-		// check that if you are correctly install those package.
-		* pip list | egrep '(numpy|tensorflow)'
-		
-			// should show something like this.
-				numpy        1.14.3
-				tensorflow   1.8.0
-		
-		
-		* sudo apt-get install git
-		
-		// clone it to ~/tensorflow directory.
-		* cd ~
-		
-		* mkdir tensorflow
-		
-		* cd tensorflow
-		
-		* git clone https://github.com/tensorflow/models.git
-		
-		// check that if you are correctly create tensorflow's models.
-		* python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
-		
-			// you should get some tags and scores.
+#### install nfs server
+
+	sudo apt-get install nfs-kernel-server nfs-common
+	sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
+	sudo groupadd -g 2049 nfs
+	usermod -aG nfs {your-normal-user} (add user to nfs group)
+	logout && login (refresh the group setting)
+	sudo chown -R root:nfs /srv/nfs/IoT
+	sudo chmod -R 775 /srv/nfs/IoT
+	sudo vim /etc/exports
+
+		// servers you want to share data with. (you can separate them with blank space.)<br />
+		// if your pi is after NAT, you should add insecure in the brackets in order to allow clients connect via ports that greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure)<br /><br />
+		/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
+	sudo ufw allow 111 2049
+	sudo systemctl restart nfs-kernel-server
+	sudo systemctl enable nfs-kernel-server (f you want to bring up this service when server startup)
+
+
+// recommend run as normal user.
+* install miniconda3
+
+	* cd ~
+
+	* wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+	* bash Miniconda3-latest-Linux-x86_64.sh
+
+	// you may export path by yourself by edit ~/.bashrc.<br />
+	// you can edit /etc/environment if you want to set global PATH.<br />
+	* let miniconda3 auto export PATH for you.
+
+	* source .bashrc (reload .bashrc)
+
+	// check that if you are using the right python. 
+	* which python
+
+		// should show something like this.
+		'/home/{your-normal-user}/miniconda3/bin/python'.
+
+
+	* conda update conda
+
+	* pip install --upgrade pip
+
+
+// run as normal user if you install miniconda3 as normal user.
+* install tensorflow
+
+	* pip install numpy
+
+	* pip install tensorflow
+
+	// check that if you are correctly install those package.
+	* pip list | egrep '(numpy|tensorflow)'
+
+		// should show something like this.
+			numpy        1.14.3
+			tensorflow   1.8.0
+
+
+	* sudo apt-get install git
+
+	// clone it to ~/tensorflow directory.
+	* cd ~
+
+	* mkdir tensorflow
+
+	* cd tensorflow
+
+	* git clone https://github.com/tensorflow/models.git
+
+	// check that if you are correctly create tensorflow's models.
+	* python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
+
+		// you should get some tags and scores.
 
 		
 ----------------------------------------------------------------------
