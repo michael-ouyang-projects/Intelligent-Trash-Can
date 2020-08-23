@@ -36,7 +36,7 @@
 	Cloud Server * 1
 	
 	
-## Process
+## Development Process
 
 > **To Remote Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
 
@@ -129,30 +129,28 @@
 
 > **To Raspberry pi (armv7l GNU/Linux 4.14.34-v7+) (2017-11-29-raspbian-stretch-lite)**
 
-	* sudo apt-get update
+* sudo apt-get update
+* sudo apt-get dist-upgrade
+* sudo apt-get autoremove
+* sudo vim /etc/hosts
 	
-	* sudo apt-get dist-upgrade
-	
-	* sudo apt-get autoremove
+```
+	if (you have static ip) {
 
-	* sudo vim /etc/hosts
+		127.0.0.1       localhost
+		your-static-ip  {your-fqdn-name} {your-host-name}
+
+	} else {
+
+		127.0.0.1       localhost
+		127.0.1.1       {your-fqdn-name} {your-host-name}
+
+	}
+```	
 	
-		if (you have static ip) {
+* sudo vim /etc/hostname
 		
-			127.0.0.1       localhost
-			your-static-ip  {your-fqdn-name} {your-host-name}
-		
-		} else {
-		
-			127.0.0.1       localhost
-			127.0.1.1       {your-fqdn-name} {your-host-name}
-		
-		}
-		
-	
-	* sudo vim /etc/hostname
-		
-		{your-host-name}
+	{your-host-name}
 		
 		
 	* sudo vim /etc/network/interfaces
