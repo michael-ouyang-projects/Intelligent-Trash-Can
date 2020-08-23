@@ -462,18 +462,18 @@
 	[vim PushButton.py](./python/PushButton.py)
 	
     	``` python
-     	import ShowRecognizeResult
+		import ShowRecognizeResult
 
-      	GPIO.setup(26, GPIO.OUT)
-      	GPIO.setup(16, GPIO.OUT)
-      	GPIO.setup(5, GPIO.OUT)
-      	GPIO.setup(4, GPIO.OUT)
+		GPIO.setup(26, GPIO.OUT)
+		GPIO.setup(16, GPIO.OUT)
+		GPIO.setup(5, GPIO.OUT)
+		GPIO.setup(4, GPIO.OUT)
 
-      	// edit method
-      	def trigger_recognition():
-          print('start recognition')
-          TriggerRemoteServer.trigger()
-          print('end recognition')
-          ShowRecognizeResult.show()
+		// edit method
+		def trigger_recognition():
+		  print('start recognition')
+		  TriggerRemoteServer.trigger()
+		  print('end recognition')
+		  ShowRecognizeResult.show()
     	```
 		
