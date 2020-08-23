@@ -422,30 +422,26 @@
 			
 > **To Remote Server**
 
-	* cd /srv/nfs/IoT/code
+* cd /srv/nfs/IoT/code
+* [vim bottle](./bash/bottle)
+* [vim beveragePack](./bash/beveragePack)	
+* [vim generalGarbage](./bash/generalGarbage)	
 	
-	* [vim bottle](./bash/bottle)
-		
-	* [vim beveragePack](./bash/beveragePack)	
-		
-	* [vim generalGarbage](./bash/generalGarbage)	
-	
-	// classify image by keywords and write the classified result in /srv/nfs/IoT/result.
-	* [vim Identify.py](./python/Identify.py)
+// classify image by keywords and write the classified result in /srv/nfs/IoT/result.
+* [vim Identify.py](./python/Identify.py)
 		
 	
-	// notify us if the classified result is 'other'.<br />
-	// i use my own mail server to send mail, you can use gmail if you want to.<br />
-	* [vim SendMail.py](./python/SendMail.py)
+// notify us if the classified result is 'other'.<br />
+// i use my own mail server to send mail, you can use gmail if you want to.<br />
+* [vim SendMail.py](./python/SendMail.py)
 	
 	
-	// let us decide the final classified result.
-	* [vim FetchMail.py](./python/FetchMail.py)
+// let us decide the final classified result.
+* [vim FetchMail.py](./python/FetchMail.py)	
 		
-		
-	* sudo chown -R root:nfs /srv/nfs/IoT
+* sudo chown -R root:nfs /srv/nfs/IoT
 	
-	* vim ~/bin/triggerTensorflow
+* vim ~/bin/triggerTensorflow
 		
 		// add this line at the bottom of the file.<br />
 	``` bash
