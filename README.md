@@ -457,23 +457,23 @@
 
 > **To Raspberry pi**
 
-	cd ~/python_workspace/project
-	[vim ShowRecognizeResult.py](./python/ShowRecognizeResult.py)
-	[vim PushButton.py](./python/PushButton.py)
+* cd ~/python_workspace/project
+* [vim ShowRecognizeResult.py](./python/ShowRecognizeResult.py)
+* [vim PushButton.py](./python/PushButton.py)
 	
-    	``` python
-		import ShowRecognizeResult
+    ``` python
+      import ShowRecognizeResult
 
-		GPIO.setup(26, GPIO.OUT)
-		GPIO.setup(16, GPIO.OUT)
-		GPIO.setup(5, GPIO.OUT)
-		GPIO.setup(4, GPIO.OUT)
+      GPIO.setup(26, GPIO.OUT)
+      GPIO.setup(16, GPIO.OUT)
+      GPIO.setup(5, GPIO.OUT)
+      GPIO.setup(4, GPIO.OUT)
 
-		// edit method
-		def trigger_recognition():
-		  print('start recognition')
-		  TriggerRemoteServer.trigger()
-		  print('end recognition')
-		  ShowRecognizeResult.show()
-    	```
+      // edit method
+      def trigger_recognition():
+        print('start recognition')
+        TriggerRemoteServer.trigger()
+        print('end recognition')
+        ShowRecognizeResult.show()
+    ```
 		
