@@ -364,21 +364,7 @@ IoT project Using Raspberry Pi with Python and Bash
 	* cd ~/python_workspace/project
 	
 	// take picture and put it in /mnt/nfs/IoT.
-	* vim MyCamera.py
-		
-    ``` python
-      from picamera import PiCamera
-      from time import sleep
-
-      camera = PiCamera()
-
-      def take_picture():
-        camera.start_preview()
-        sleep(3)
-        imagePath = '/mnt/nfs/IoT/pictures/tmp.jpg'
-        camera.capture(imagePath)
-        camera.stop_preview()
-    ```
+	* [vim MyCamera.py](./python/MyCamera.py)
 		
 	
 	// detect the switch button, execute the trigger method if the button is pressed.
@@ -443,16 +429,7 @@ IoT project Using Raspberry Pi with Python and Bash
 	* cd ~/python_workspace/project
 	
 	// trigger remote-server execute the script (triggerTensorflow).
-	* vim TriggerRemoteServer.py
-	
-    ``` python
-      import os
-
-      def trigger():
-        command = "ssh {remote-server-user}@{remote-server-ip} -p {remote-server-ssh-port} 'bash /home/{remote-server-user}/bin/triggerTensorflow'"
-        os.system(command)
-    ```
-		
+	* [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 	
 	* vim PushButton.py
 	
@@ -496,149 +473,16 @@ IoT project Using Raspberry Pi with Python and Bash
 	
 	
 	// classify image by keywords and write the classified result in /srv/nfs/IoT/result.
-	* vim Identify.py
-	
-    ``` python
-      import sys
-      from time import sleep
-
-      import SendMail
-      import FetchMail
-
-      imageInfoPath = sys.argv[1]
-      imagePath = sys.argv[2]
-
-      imageInfo = open(imageInfoPath, "r")
-      imageInfos = imageInfo.read().splitlines()
-      imageInfo.close()
-
-
-      beveragePack = open("/srv/nfs/IoT/code/beveragePack", "r")
-      beveragePackKeys = beveragePack.read().splitlines()
-      beveragePack.close()
-
-      for i in range(len(beveragePackKeys)):
-        for j in range(len(imageInfos)):
-          if(imageInfos[j].find(beveragePackKeys[i]) > -1):
-            result = open("/srv/nfs/IoT/result", "w")
-            result.write("beveragePack")
-            result.close()
-            sys.exit()
-
-
-      bottle = open("/srv/nfs/IoT/code/bottle", "r")
-      bottleKeys = bottle.read().splitlines()
-      bottle.close()
-
-      for i in range(len(bottleKeys)):
-        for j in range(2):
-          if(imageInfos[j].find(bottleKeys[i]) > -1):
-            result = open("/srv/nfs/IoT/result", "w")
-            result.write("bottle")
-            result.close()
-            sys.exit()
-
-
-      generalGarbage = open("/srv/nfs/IoT/code/generalGarbage", "r")
-      generalGarbageKeys = generalGarbage.read().splitlines()
-      generalGarbage.close()
-
-      for i in range(len(generalGarbageKeys)):
-        for j in range(len(imageInfos)):
-          if(imageInfos[j].find(generalGarbageKeys[i]) > -1):
-            result = open("/srv/nfs/IoT/result", "w")
-            result.write("generalGarbage")
-            result.close()
-            sys.exit()
-
-
-      result = open("/srv/nfs/IoT/result", "w")
-      result.write("other")
-      result.close()
-      SendMail.send(imagePath)
-      for i in range(30):
-        sleep(2)
-        if(FetchMail.fetch()):
-          break
-    ```
+	* [vim Identify.py](./python/Identify.py)
 		
 	
 	// notify us if the classified result is 'other'.<br />
 	// i use my own mail server to send mail, you can use gmail if you want to.<br />
-	* vim SendMail.py
-	
-    ``` python
-      import smtplib
-      from email.mime.text import MIMEText
-      from email.mime.image import MIMEImage
-      from email.mime.multipart import MIMEMultipart
-
-      def send(imagePath):
-        sender = 'iot@domain.com'
-        receiver = '{your-email-address}'
-
-        msg = MIMEMultipart()
-        msg['Subject'] = 'Intelligent Trash Can'
-        msg['From'] = sender
-        msg['To'] = receiver
-
-        text = MIMEText('Cannot classify the trash!')
-        msg.attach(text)
-
-        imageData = open(imagePath, 'rb').read()
-        image = MIMEImage(imageData, name='Image')
-        msg.attach(image)
-
-        smtp = smtplib.SMTP('{smtp-server}', {smtp-port})
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.login('iot', '{iot-pwd}')
-        smtp.sendmail(sender, receiver, msg.as_string())
-        smtp.quit()
-    ```
+	* [vim SendMail.py](./python/SendMail.py)
 	
 	
 	// let us decide the final classified result.
-	* vim FetchMail.py
-	
-    ``` python
-      import imaplib
-      import email
-
-      def fetch():
-        returnValue = False
-        imap = imaplib.IMAP4_SSL('{smtp-server}')
-        imap.login('iot', '{iot-pwd}')
-        imap.select('inbox')
-
-        imapStatus, data = imap.search(None,'unseen')
-
-        if(imapStatus == 'OK'):
-          mails = data[0].split()
-          if mails:
-            latest_mail_index = mails[-1]
-            msg = imap.fetch(latest_mail_index, '(RFC822)')
-            msgStr = str(msg[1][0][1])
-            if(msgStr.find('From: {your-email-name} <{your-email-address}>') > -1):
-              if(msgStr.find('bottle') > -1):
-                result = open("/srv/nfs/IoT/result", "w")
-                result.write("bottle")
-                result.close()
-                returnValue = True
-              elif(msgStr.find('beveragePack') > -1):
-                result = open("/srv/nfs/IoT/result", "w")
-                result.write("beveragePack")
-                result.close()
-                returnValue = True
-              elif(msgStr.find('generalGarbage') > -1):
-                result = open("/srv/nfs/IoT/result", "w")
-                result.write("generalGarbage")
-                result.close()
-                returnValue = True
-              elif(msgStr.find('other') > -1):
-                returnValue = True
-        return returnValue
-    ```
+	* [vim FetchMail.py](./python/FetchMail.py)
 		
 		
 	* sudo chown -R root:nfs /srv/nfs/IoT
@@ -657,43 +501,7 @@ IoT project Using Raspberry Pi with Python and Bash
 
 	* cd ~/python_workspace/project
 	
-	* vim ShowRecognizeResult.py
-	
-    ``` python
-      import RPi.GPIO as GPIO
-      from time import sleep
-
-      def show():
-        result = open("/mnt/nfs/IoT/result", "r")
-        imageResult = result.read()
-        result.close()
-
-        if(imageResult.find('bottle') > -1):
-          print('bottle')
-          GPIO.output(26, 1)
-          sleep(5)
-        elif(imageResult.find('beveragePack') > -1):
-          print('beveragePack')
-          GPIO.output(16, 1)
-          sleep(5)
-        elif(imageResult.find('generalGarbage') > -1):
-          print('generalGarbage')
-          GPIO.output(5, 1)
-          sleep(5)
-        else:
-          print('other')
-          for i in range(5):
-            GPIO.output(4, 1)
-            sleep(0.1)
-            GPIO.output(4, 0)
-            sleep(0.9)
-
-        GPIO.output(26, 0)
-        GPIO.output(16, 0)
-        GPIO.output(5, 0)
-        GPIO.output(4, 0)
-        GPIO.cleanup()
-    ```
+	* [vim ShowRecognizeResult.py](./python/ShowRecognizeResult.py)
 		
 	
 	* vim PushButton.py
