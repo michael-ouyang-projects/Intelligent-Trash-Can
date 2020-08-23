@@ -1,5 +1,4 @@
 # Intelligent-Trash-Can
-IoT project Using Raspberry Pi with Python and Bash
 
 ![alt text](../master/Intelligent-Trash-Can.jpg "Product Image")
 
@@ -39,16 +38,16 @@ IoT project Using Raspberry Pi with Python and Bash
 	
 ## Process
 
-* Remote Server (x86_64 GNU/Linux 4.4.0-116-generic)(Ubuntu 16.04.4 LTS xenial)
+Remote Server (x86_64 GNU/Linux 4.4.0-116-generic)(Ubuntu 16.04.4 LTS xenial)
 
-#### install ssh
+#### Install ssh
 
 	sudo apt-get install openssh-server (you can change the service port in /etc/ssh/sshd_config.)
 	sudo ufw allow 22 (or the port you change in previous step.)
 	sudo systemctl restart ssh
 		
 
-#### install nfs server
+#### Install nfs server
 
 	sudo apt-get install nfs-kernel-server nfs-common
 	sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
