@@ -426,18 +426,10 @@
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage)	
-	
-// classify image by keywords and write the classified result in /srv/nfs/IoT/result.
-* [vim Identify.py](./python/Identify.py)
-		
-	
-// notify us if the classified result is 'other'.<br />
-// i use my own mail server to send mail, you can use gmail if you want to.<br />
-* [vim SendMail.py](./python/SendMail.py)
-	
-	
-// let us decide the final classified result.
-* [vim FetchMail.py](./python/FetchMail.py)	
+* [vim Identify.py](./python/Identify.py) (classify image by keywords and write the classified result in /srv/nfs/IoT/result)		
+* [vim SendMail.py](./python/SendMail.py) (notify us if the classified result is 'other')
+	I use my own mail server to send mail, you can use gmail if you want to.
+* [vim FetchMail.py](./python/FetchMail.py) (let us decide the final classified result)	
 		
 * sudo chown -R root:nfs /srv/nfs/IoT
 	
