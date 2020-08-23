@@ -424,23 +424,11 @@ Remote Server (x86_64 GNU/Linux 4.4.0-116-generic)(Ubuntu 16.04.4 LTS xenial)
 
 	* cd /srv/nfs/IoT/code
 	
-	* vim bottle
-	
-		bottle
+	* [vim bottle](./bash/bottle)
 		
+	* [vim beveragePack](./bash/beveragePack)	
 		
-	* vim beveragePack
-	
-		switch
-		machine
-		refrigerator
-		
-		
-	* vim generalGarbage
-	
-		fish
-		tissue
-	
+	* [vim generalGarbage](./bash/generalGarbage)	
 	
 	// classify image by keywords and write the classified result in /srv/nfs/IoT/result.
 	* [vim Identify.py](./python/Identify.py)
