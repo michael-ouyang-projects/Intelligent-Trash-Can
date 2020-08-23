@@ -396,12 +396,9 @@
 
 > **To Raspberry pi**
 
-	* cd ~/python_workspace/project
-	
-	// trigger remote-server execute the script (triggerTensorflow).
-	* [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
-	
-	* vim PushButton.py
+* cd ~/python_workspace/project
+* [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py) (trigger remote-server execute the script [triggerTensorflow])
+* [vim PushButton.py](./python/PushButton.py)
 	
     ``` python
       import TriggerRemoteServer
