@@ -42,27 +42,32 @@
 
 #### Install ssh
 
-	sudo apt-get install openssh-server (you can change the service port in /etc/ssh/sshd_config.)
-	sudo ufw allow 22 (or the port you change in previous step.)
-	sudo systemctl restart ssh
+* sudo apt-get install openssh-server (you can change the service port in /etc/ssh/sshd_config.)
+* sudo ufw allow 22 (or the port you change in previous step.)
+* sudo systemctl restart ssh
 
 #### Install nfs-server
 
-	sudo apt-get install nfs-kernel-server nfs-common
-	sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
-	sudo groupadd -g 2049 nfs
-	usermod -aG nfs {your-normal-user} (add user to nfs group)
-	logout && login (refresh the group setting)
-	sudo chown -R root:nfs /srv/nfs/IoT
-	sudo chmod -R 775 /srv/nfs/IoT
-	sudo vim /etc/exports
+* sudo apt-get install nfs-kernel-server nfs-common
+* sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
+* sudo groupadd -g 2049 nfs
+* usermod -aG nfs {your-normal-user} (add user to nfs group)
+* logout && login (refresh the group setting)
+* sudo chown -R root:nfs /srv/nfs/IoT
+* sudo chmod -R 775 /srv/nfs/IoT
+* sudo vim /etc/exports
 
-		// servers you want to share data with. (you can separate them with blank space.)<br />
-		// if your pi is after NAT, you should add insecure in the brackets in order to allow clients connect via ports that greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure)<br /><br />
-		/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
-	sudo ufw allow 111 2049
-	sudo systemctl restart nfs-kernel-server
-	sudo systemctl enable nfs-kernel-server (f you want to bring up this service when server startup)
+	```
+	// servers you want to share data with. (you can separate them with blank space.)<br />
+	// if your pi is after NAT, you should add insecure in the brackets in order to allow clients connect via ports that greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure)<br /><br />
+	/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
+	```
+		
+* sudo ufw allow 111 2049
+* sudo systemctl restart nfs-kernel-server <br/>
+
+*// [If you want to bring up this service during server startup]*
+* sudo systemctl enable nfs-kernel-server
 
 ### Install miniconda3 (Recommend run as normal user)
 
