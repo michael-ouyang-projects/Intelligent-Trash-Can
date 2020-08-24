@@ -221,18 +221,12 @@
 		* ssh remote-server-user@remote-server-ip -p remote-server-ssh-port
 		
 	
-	* install nfs client
-	
-		* sudo apt-get install nfs-common
-		
-		* sudo mkdir /mnt/nfs
-		
-		* sudo mkdir /mnt/nfs/IoT
-
-		// you can first check that if you are in remote-server's export list by this command.
-		* showmount -e remote-server-ip
-		
-		* sudo mount -t nfs remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
+*// [Install nfs client]*
+* sudo apt-get install nfs-common
+* sudo mkdir =p /mnt/nfs/IoT <br/><br/>
+*// [Check that if you are in remote-server's export list]*
+* showmount -e remote-server-ip	
+* sudo mount -t nfs remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
 		
 		// check that if you are correctly connect to network file system server.
 		* df -h | grep /mnt/nfs/IoT
@@ -259,44 +253,31 @@
 		
 			drwxrwxr-x 3 root nfs 4096 Jun 12 02:31 /mnt/nfs/IoT
 	
-	
-	// recommend run as normal user.
-	* install berryconda3
-	
-		* cd ~
-		
-		* wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
-	
-		* bash Berryconda3-2.0.0-Linux-armv7l.sh
+*// [Install berryconda3 (recommend run as normal user)]*
+* cd ~
+* wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
+* bash Berryconda3-2.0.0-Linux-armv7l.sh
 
 		// check that if you are using the right python. 
-		* which python
-			
-			// should show something like this.
-			'/home/{your-normal-user}/berryconda3/bin/python'
-		
-		* conda update conda
+* which python
+	```
+	// should show something like this.
+	'/home/{your-normal-user}/berryconda3/bin/python'
+	```
 
-		* pip install --upgrade pip
-	
-	
-	// run as normal user if you install berryconda3 as normal user.
-	* install python packages for our project.
-	
-		* pip install numpy
-		
-		* pip install picamera
-		
-		* pip install RPi.GPIO
-		
-		// check that if you are correctly install those package.
-		* pip list | egrep '(numpy|picamera|RPi.GPIO)'
-			
-			// should show something like this.
-			numpy        1.14.3
-			picamera     1.13
-			RPi.GPIO     0.6.3
-	
+* conda update conda
+* pip install --upgrade pip <br/><br/>
+*// [Install python packages for our project] (Run as normal user if you install berryconda3 as normal user)*
+* pip install numpy picamera RPi.GPIO
+*// [Check that if you are correctly install those package]*
+* pip list | egrep '(numpy|picamera|RPi.GPIO)'
+
+	```
+	// should show something like this.
+	numpy        1.14.3
+	picamera     1.13
+	RPi.GPIO     0.6.3
+	```
 	
 *// [If you are not using 'pi' as your normal user, add your user to group adm, sudo, video and gpio]*
 * sudo vim /etc/group <br/><br/>
@@ -308,7 +289,7 @@
 	{normal-user} : {normal-user} adm sudo video gpio nfs
 	```
 
-*// [Enable Camera]
+*// [Enable Camera]*
 * sudo raspi-config
 * Interfacing Options => P1 Camera => Yes => Ok => Finish
 
