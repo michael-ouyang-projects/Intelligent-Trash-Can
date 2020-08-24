@@ -134,7 +134,7 @@
 * sudo apt-get autoremove
 * sudo vim /etc/hosts
 	
-```
+	```
 	if (you have static ip) {
 
 		127.0.0.1       localhost
@@ -146,14 +146,12 @@
 		127.0.1.1       {your-fqdn-name} {your-host-name}
 
 	}
-```	
-	
-* sudo vim /etc/hostname
-		
-	{your-host-name}
-		
-		
-	* sudo vim /etc/network/interfaces
+	```
+
+*// [Edit Host Name]*
+* sudo vim /etc/hostname <br/><br/>
+*// [Edit Network]*	
+* sudo vim /etc/network/interfaces
 	
 		if(you want to connect to internet via wifi) {
 			
@@ -196,20 +194,15 @@
 		}
 		
 		
-	* sudo reboot
-	
-	// check that if you are correctly setting your host name.
-	* hostname -f => fqdn-name
-	* hostname -s => host-name
-	
-	// check that if you are connecting to the WAN.
-	* ping 8.8.8.8
-
-	* install ssh
-	
-		* sudo apt-get install openssh-server
-		
-		* sudo systemctl restart ssh
+* sudo reboot <br/><br/>
+*// [Check that if you are correctly setting your host name]*
+* hostname -f => fqdn-name
+* hostname -s => host-name <br/><br/>
+*// [check that if you are connecting to the WAN]*
+* ping 8.8.8.8 <br/><br/>
+*// [Install ssh]*
+* sudo apt-get install openssh-server
+* sudo systemctl restart ssh
 		
 	
 	// we can login in to the remote server with this private key. (don't need to enter the password while using ssh or scp)<br />
