@@ -362,34 +362,23 @@
 	
 > **To Remote Server**
 
-	// run as normal user if you install tensorflow as normal user.
-	* create script to automatically run tensorflow.
-	
-		* cd ~
-		
-		* mkdir bin
-		
-		* cd bin
-		
-		* vim triggerTensorflow
-		``` bash
-		  #!/bin/bash
+* create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)
+* mkdir ~/bin
+* cd ~/bin
+* vim triggerTensorflow
+``` bash
+  #!/bin/bash
 
-		  time=`date "+%Y-%m-%d_%H:%M:%S"`
+  time=`date "+%Y-%m-%d_%H:%M:%S"`
 
-		  /home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
+  /home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
 
-		  mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
-		```
-	
-		* chmod 770 triggerTensorflow
-	
-		// because we create our shell script in ~/bin, so we don't need to update the path.<br />
-		// check it
-		* echo $PATH | grep "/home/{your-normal-user}/bin"
-		* which triggerTensorflow
-		
-		
+  mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
+```
+* chmod 770 triggerTensorflow <br/><br/>
+*[Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
+* echo $PATH | grep "/home/{your-normal-user}/bin"
+* which triggerTensorflow
 ----------------------------------------------------------------------
 
 > **To Raspberry pi**
