@@ -42,10 +42,10 @@
 
 #### Install ssh
 
-*// [You can change the service port in /etc/ssh/sshd_config]*
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh
 * sudo ufw allow 22
+*// [You can change the service port in /etc/ssh/sshd_config]*
 
 #### Install nfs-server
 
@@ -53,9 +53,11 @@
 
 *// [Create group nfs and add user into the group]*
 * sudo groupadd -g 2049 nfs
-* usermod -aG nfs {your-normal-user}
+* usermod -aG nfs {your-non-root-user}
 
-*// [Logout && Login (Refresh the group setting)]*
+*// [Refresh group setting]*
+* Logout && Login
+
 * sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
 * sudo chown -R root:nfs /srv/nfs/IoT
 * sudo chmod -R 775 /srv/nfs/IoT
@@ -149,46 +151,47 @@
 *// [Edit Network]*	
 * sudo vim /etc/network/interfaces
 	
-		if(you want to connect to internet via wifi) {
-			
-			auto wlan0
-			iface wlan0 inet (static || dhcp)
-			wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-			
-			
-			* vim /etc/wpa_supplicant/wpa_supplicant.conf
-			
-				network={
-					ssid="{AP-name}"
-					psk="{AP-password}"
-					priority=1 (raspberry pi will try to connect to the highest priority(largest number) AP first.)
-					id_str="{AP-info}"
-				}
-				
-			
-			// sometime raspberry pi won't connect to internet via wifi after startup.<br />
-			// so we can auto re-bring-up the wifi interface or restart networking service right after startup.<br />
-			* vim /etc/rc.local
-			
-				// add one of this at file's bottom right before exit 0.
-				1. ifdown wlan0 && ifup wlan0
-				2. systemctl restart networking
-				
-			
-			// you can scan the available AP using this command.
-			* iwlist wlan0 scan
-		
-		} else {
-		
-			auto eth0
-			iface eth0 inet (static || dhcp)
-			address x.x.x.x
-			netmask 255.255.255.0
-			gateway x.x.x.x
-			dns-nameservers x.x.x.x x.x.x.x
-		
-		}
-		
+	```
+	if(you want to connect to internet via wifi) {
+
+		auto wlan0
+		iface wlan0 inet (static || dhcp)
+		wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+		* vim /etc/wpa_supplicant/wpa_supplicant.conf
+
+			network={
+				ssid="{AP-name}"
+				psk="{AP-password}"
+				priority=1 (raspberry pi will try to connect to the highest priority(largest number) AP first.)
+				id_str="{AP-info}"
+			}
+
+
+		// sometime raspberry pi won't connect to internet via wifi after startup.<br />
+		// so we can auto re-bring-up the wifi interface or restart networking service right after startup.<br />
+		* vim /etc/rc.local
+
+			// add one of this at file's bottom right before exit 0.
+			1. ifdown wlan0 && ifup wlan0
+			2. systemctl restart networking
+
+
+		// you can scan the available AP using this command.
+		* iwlist wlan0 scan
+
+	} else {
+
+		auto eth0
+		iface eth0 inet (static || dhcp)
+		address x.x.x.x
+		netmask 255.255.255.0
+		gateway x.x.x.x
+		dns-nameservers x.x.x.x x.x.x.x
+
+	}
+	```
 		
 * sudo reboot <br/>
 
@@ -265,7 +268,7 @@
 
 	```
 	// should show something like this.
-	'/home/{your-normal-user}/berryconda3/bin/python'
+	/home/{your-normal-user}/berryconda3/bin/python
 	```
 
 * conda update conda
