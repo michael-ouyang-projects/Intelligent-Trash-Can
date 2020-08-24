@@ -45,6 +45,7 @@
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh
 * sudo ufw allow 22 <br/>
+
 *// [You can change the service port in /etc/ssh/sshd_config]*
 
 #### Install nfs-server
