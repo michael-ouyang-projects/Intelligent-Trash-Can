@@ -305,12 +305,9 @@
 			RPi.GPIO     0.6.3
 	
 	
-	// if you are not using 'pi' as your normal user.
-	* sudo vim /etc/group
-	
-		add your user in group adm, sudo, video and gpio.
-	
-	
+*// [If you are not using 'pi' as your normal user, add your user to group adm, sudo, video and gpio]
+* sudo vim /etc/group <br/>
+
 *// [Check that if your normal user is in those group]*
 * groups {normal-user}
 	``` bash
@@ -323,10 +320,10 @@
 * Interfacing Options => P1 Camera => Yes => Ok => Finish
 	
 * mkdir -p ~/python_workspace/project
-* cd ~/python_workspace/project <br/><br/>
+* cd ~/python_workspace/project <br/>
 	
 *// [Take picture and put it in /mnt/nfs/IoT]*
-* [vim MyCamera.py](./python/MyCamera.py) <br/><br/>
+* [vim MyCamera.py](./python/MyCamera.py) <br/>
 		
 *// [Detect the switch button, execute the trigger method if the button is pressed]*
 * [vim PushButton.py](./python/PushButton.py)
@@ -353,10 +350,12 @@
 ----------------------------------------------------------------------
 
 > **To Remote Server**
+
 *// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
+
 	``` bash
 	#!/bin/bash
 
@@ -366,7 +365,9 @@
 
 	mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
 	```
-* chmod 770 triggerTensorflow <br/><br/>
+
+* chmod 770 triggerTensorflow <br/>
+
 *// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
@@ -375,7 +376,8 @@
 
 > **To Raspberry pi**
 
-* cd ~/python_workspace/project <br/><br/>
+* cd ~/python_workspace/project <br/>
+
 *// [trigger remote-server execute the script (triggerTensorflow)]*
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
@@ -402,14 +404,18 @@
 * cd /srv/nfs/IoT/code
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
-* [vim generalGarbage](./bash/generalGarbage) <br/><br/>
+* [vim generalGarbage](./bash/generalGarbage) <br/>
+
 *// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
-* [vim Identify.py](./python/Identify.py) <br/><br/>
+* [vim Identify.py](./python/Identify.py) <br/>
+
 *// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
-* [vim SendMail.py](./python/SendMail.py) <br/><br/>
+* [vim SendMail.py](./python/SendMail.py) <br/>
+
 *// [Let us decide the final classified result]*
 * [vim FetchMail.py](./python/FetchMail.py)	
-* sudo chown -R root:nfs /srv/nfs/IoT <br/><br/>
+* sudo chown -R root:nfs /srv/nfs/IoT <br/>
+
 *// [Add this line at the bottom of the file]*
 * vim ~/bin/triggerTensorflow
 
