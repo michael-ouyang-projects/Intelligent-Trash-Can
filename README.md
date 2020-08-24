@@ -25,7 +25,7 @@
 [Operation](https://youtu.be/C6XysghJNQs)
 
 	
-## Prepare
+## Requirement
 
 	Raspberry pi * 1
 	Breadboard * 1
@@ -45,9 +45,8 @@
 	sudo apt-get install openssh-server (you can change the service port in /etc/ssh/sshd_config.)
 	sudo ufw allow 22 (or the port you change in previous step.)
 	sudo systemctl restart ssh
-		
 
-#### Install nfs server
+#### Install nfs-server
 
 	sudo apt-get install nfs-kernel-server nfs-common
 	sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
@@ -65,65 +64,52 @@
 	sudo systemctl restart nfs-kernel-server
 	sudo systemctl enable nfs-kernel-server (f you want to bring up this service when server startup)
 
+### Install miniconda3 (Recommend run as normal user)
 
-// recommend run as normal user.
-* install miniconda3
-
-	* cd ~
-
-	* wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-
-	* bash Miniconda3-latest-Linux-x86_64.sh
+* cd ~
+* wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+* bash Miniconda3-latest-Linux-x86_64.sh
 
 	// you may export path by yourself by edit ~/.bashrc.<br />
 	// you can edit /etc/environment if you want to set global PATH.<br />
 	* let miniconda3 auto export PATH for you.
 
-	* source .bashrc (reload .bashrc)
+* source .bashrc (reload .bashrc) <br/>
 
-	// check that if you are using the right python. 
-	* which python
+*// [Check that if you are using the right python]*
+* which python
 
-		// should show something like this.
-		'/home/{your-normal-user}/miniconda3/bin/python'.
+	```
+	// should show something like this.
+	/home/{your-normal-user}/miniconda3/bin/python
+	```
 
+* conda update conda
+* pip install --upgrade pip <br/>
 
-	* conda update conda
+### install tensorflow (Run as normal user if you install miniconda3 as normal user)
+* pip install numpy tensorflow <br/>
 
-	* pip install --upgrade pip
+*// [Check that if you are correctly install those package]*
+* pip list | egrep '(numpy|tensorflow)'
 
+	```
+	// should show something like this.
+	numpy        1.14.3
+	tensorflow   1.8.0
+	```
 
-// run as normal user if you install miniconda3 as normal user.
-* install tensorflow
+* sudo apt-get install git
+* mkdir ~/tensorflow
+* cd ~/tensorflow
+* git clone https://github.com/tensorflow/models.git <br/>
 
-	* pip install numpy
-
-	* pip install tensorflow
-
-	// check that if you are correctly install those package.
-	* pip list | egrep '(numpy|tensorflow)'
-
-		// should show something like this.
-			numpy        1.14.3
-			tensorflow   1.8.0
-
-
-	* sudo apt-get install git
-
-	// clone it to ~/tensorflow directory.
-	* cd ~
-
-	* mkdir tensorflow
-
-	* cd tensorflow
-
-	* git clone https://github.com/tensorflow/models.git
-
-	// check that if you are correctly create tensorflow's models.
-	* python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
-
-		// you should get some tags and scores.
-
+*// [Check that if you can create tensorflow's models correctly]*
+* python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
+	
+	```
+	// you should get some tags and scores.
+	```
 		
 ----------------------------------------------------------------------
 
@@ -149,7 +135,8 @@
 	```
 
 *// [Edit Host Name]*
-* sudo vim /etc/hostname <br/><br/>
+* sudo vim /etc/hostname <br/>
+
 *// [Edit Network]*	
 * sudo vim /etc/network/interfaces
 	
@@ -211,9 +198,11 @@
 *// [Create RSA keys and copy public key to remote server]* <br/>
 *// [We can login in to the remote server with this private key. (don't need to enter the password while using ssh or scp)]*
 * ssh-keygen -t rsa
+
 	```
 	press enter three time for default setting (use empty passphrase)
 	```
+	
 *// [Install public key to remote server (~/.ssh/authorized_keys)]*
 * cd ~/.ssh
 * ssh-copy-id -i id_rsa.pub remote-server-user@remote-server-ip -p remote-server-ssh-port <br/>
@@ -231,6 +220,7 @@
 		
 *// [Check that if you are correctly connect to network file system server]*
 * df -h | grep /mnt/nfs/IoT
+
 	```		
 	// should show something like this.
 	remote-server-ip:/srv/nfs/IoT   28G  6.4G   21G  25% /mnt/nfs/IoT
@@ -238,6 +228,7 @@
 		
 *// [If you want to auto mount on startup]*
 * sudo vim /etc/fstab
+
 	```
 	remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT nfs defaults 0 0
 	```	
@@ -250,6 +241,7 @@
 		
 *// [Check point]*
 * ls -ld /mnt/nfs/IoT
+
 	```
 	drwxrwxr-x 3 root nfs 4096 Jun 12 02:31 /mnt/nfs/IoT
 	```
@@ -261,6 +253,7 @@
 
 *// [Check that if you are using the right python]*
 * which python
+
 	```
 	// should show something like this.
 	'/home/{your-normal-user}/berryconda3/bin/python'
