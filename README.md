@@ -356,35 +356,35 @@
       message = input("Press enter to quit\n\n")
       GPIO.cleanup()
     ```
-		
 	
 ----------------------------------------------------------------------
-	
+
 > **To Remote Server**
 
 * create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
-``` bash
-  #!/bin/bash
+	``` bash
+	  #!/bin/bash
 
-  time=`date "+%Y-%m-%d_%H:%M:%S"`
+	  time=`date "+%Y-%m-%d_%H:%M:%S"`
 
-  /home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
+	  /home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
 
-  mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
-```
+	  mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
+	```
 * chmod 770 triggerTensorflow <br/><br/>
-*[Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
+*// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
 ----------------------------------------------------------------------
 
 > **To Raspberry pi**
 
-* cd ~/python_workspace/project
-* [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py) (trigger remote-server execute the script [triggerTensorflow])
+* cd ~/python_workspace/project <br/><br/>
+*// [trigger remote-server execute the script (triggerTensorflow)]*
+* [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
 	
     ``` python
@@ -410,14 +410,14 @@
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage) <br/><br/>
-// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]
+*// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
 * [vim Identify.py](./python/Identify.py) <br/><br/>
-// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]
+*// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
 * [vim SendMail.py](./python/SendMail.py) <br/><br/>
-//[Let us decide the final classified result]
+*// [Let us decide the final classified result]*
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT <br/><br/>
-//[Add this line at the bottom of the file]
+*// [Add this line at the bottom of the file]*
 * vim ~/bin/triggerTensorflow
 
 	``` bash
