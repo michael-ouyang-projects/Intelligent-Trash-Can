@@ -223,42 +223,43 @@
 	
 *// [Install nfs client]*
 * sudo apt-get install nfs-common
-* sudo mkdir =p /mnt/nfs/IoT <br/><br/>
+* sudo mkdir =p /mnt/nfs/IoT <br/>
+
 *// [Check that if you are in remote-server's export list]*
 * showmount -e remote-server-ip	
 * sudo mount -t nfs remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
 		
-		// check that if you are correctly connect to network file system server.
-		* df -h | grep /mnt/nfs/IoT
-			
-			// should show something like this.
-			remote-server-ip:/srv/nfs/IoT   28G  6.4G   21G  25% /mnt/nfs/IoT
+*// [Check that if you are correctly connect to network file system server]*
+* df -h | grep /mnt/nfs/IoT
+	```		
+	// should show something like this.
+	remote-server-ip:/srv/nfs/IoT   28G  6.4G   21G  25% /mnt/nfs/IoT
+	```
 		
+*// [If you want to auto mount on startup]*
+* sudo vim /etc/fstab
+	```
+	remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT nfs defaults 0 0
+	```	
 		
-		// if you want to auto mount on startup
-		* sudo vim /etc/fstab
+* sudo groupadd -g 2049 nfs <br/>
+
+*// [Add user to nfs group]*
+* sudo usermod -aG nfs {your-normal-user}
+* logout && login (refresh the group setting)
 		
-			remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT nfs defaults 0 0
-		
-		
-		* sudo groupadd -g 2049 nfs
-	
-		// add user to nfs group
-		* sudo usermod -aG nfs {your-normal-user}
-		
-		* logout && login (refresh the group setting)
-		
-		// check point
-		* ls -ld /mnt/nfs/IoT
-		
-			drwxrwxr-x 3 root nfs 4096 Jun 12 02:31 /mnt/nfs/IoT
-	
+*// [Check point]*
+* ls -ld /mnt/nfs/IoT
+	```
+	drwxrwxr-x 3 root nfs 4096 Jun 12 02:31 /mnt/nfs/IoT
+	```
+
 *// [Install berryconda3 (recommend run as normal user)]*
 * cd ~
 * wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
-* bash Berryconda3-2.0.0-Linux-armv7l.sh
+* bash Berryconda3-2.0.0-Linux-armv7l.sh <br/>
 
-		// check that if you are using the right python. 
+*// [Check that if you are using the right python]*
 * which python
 	```
 	// should show something like this.
@@ -266,9 +267,11 @@
 	```
 
 * conda update conda
-* pip install --upgrade pip <br/><br/>
+* pip install --upgrade pip <br/>
+
 *// [Install python packages for our project] (Run as normal user if you install berryconda3 as normal user)*
-* pip install numpy picamera RPi.GPIO
+* pip install numpy picamera RPi.GPIO <br/>
+
 *// [Check that if you are correctly install those package]*
 * pip list | egrep '(numpy|picamera|RPi.GPIO)'
 
@@ -280,7 +283,8 @@
 	```
 	
 *// [If you are not using 'pi' as your normal user, add your user to group adm, sudo, video and gpio]*
-* sudo vim /etc/group <br/><br/>
+* sudo vim /etc/group <br/>
+
 *// [Check that if your normal user is in those group]*
 * groups {normal-user}
 
@@ -294,9 +298,11 @@
 * Interfacing Options => P1 Camera => Yes => Ok => Finish
 
 * mkdir -p ~/python_workspace/project
-* cd ~/python_workspace/project <br/><br/>
+* cd ~/python_workspace/project <br/>
+
 *// [Take picture and put it in /mnt/nfs/IoT]*
-* [vim MyCamera.py](./python/MyCamera.py) <br/><br/>
+* [vim MyCamera.py](./python/MyCamera.py) <br/>
+
 *// [Detect the switch button, execute the trigger method if the button is pressed]*
 * [vim PushButton.py](./python/PushButton.py)
 		
@@ -338,7 +344,8 @@
 	mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
 	```
 
-* chmod 770 triggerTensorflow <br/><br/>
+* chmod 770 triggerTensorflow <br/>
+
 *// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
@@ -347,7 +354,8 @@
 
 > **To Raspberry pi**
 
-* cd ~/python_workspace/project <br/><br/>
+* cd ~/python_workspace/project <br/>
+
 *// [trigger remote-server execute the script (triggerTensorflow)]*
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
@@ -374,14 +382,18 @@
 * cd /srv/nfs/IoT/code
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
-* [vim generalGarbage](./bash/generalGarbage) <br/><br/>
+* [vim generalGarbage](./bash/generalGarbage) <br/>
+
 *// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
-* [vim Identify.py](./python/Identify.py) <br/><br/>
+* [vim Identify.py](./python/Identify.py) <br/>
+
 *// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
-* [vim SendMail.py](./python/SendMail.py) <br/><br/>
+* [vim SendMail.py](./python/SendMail.py) <br/>
+
 *// [Let us decide the final classified result]*
 * [vim FetchMail.py](./python/FetchMail.py)	
-* sudo chown -R root:nfs /srv/nfs/IoT <br/><br/>
+* sudo chown -R root:nfs /srv/nfs/IoT <br/>
+
 *// [Add this line at the bottom of the file]*
 * vim ~/bin/triggerTensorflow
 
