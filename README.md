@@ -44,7 +44,7 @@
 
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh
-* sudo ufw allow 22
+* sudo ufw allow 22 <br/>
 *// [You can change the service port in /etc/ssh/sshd_config]*
 
 #### Install nfs-server
@@ -75,7 +75,7 @@
 *// [If you want to bring up this service during server startup]*
 * sudo systemctl enable nfs-kernel-server
 
-### Install miniconda3 (Recommend run as normal user)
+#### Install miniconda3 (Recommend run as normal user)
 
 * cd ~
 * wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -98,7 +98,7 @@
 * conda update conda
 * pip install --upgrade pip <br/>
 
-### install tensorflow (Run as normal user if you install miniconda3 as normal user)
+#### install tensorflow (Run as normal user if you install miniconda3 as normal user)
 * pip install numpy tensorflow <br/>
 
 *// [Check that if you are correctly install those package]*
