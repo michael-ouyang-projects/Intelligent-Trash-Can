@@ -38,7 +38,7 @@
 	
 ## Development Process
 
-> **To Remote Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
+> **Remote Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
 
 #### Install ssh
 
@@ -127,7 +127,7 @@
 		
 ----------------------------------------------------------------------
 
-> **To Raspberry pi (armv7l GNU/Linux 4.14.34-v7+) (2017-11-29-raspbian-stretch-lite)**
+> **Raspberry pi (armv7l GNU/Linux 4.14.34-v7+) (2017-11-29-raspbian-stretch-lite)**
 
 * sudo apt-get update
 * sudo apt-get dist-upgrade
@@ -332,28 +332,27 @@
 * [vim PushButton.py](./python/PushButton.py)
 		
     ``` python
-      import RPi.GPIO as GPIO
-      import MyCamera
+    import RPi.GPIO as GPIO
+    import MyCamera
 
-      GPIO.setmode(GPIO.BCM)
-      GPIO.setup(18, GPIO.OUT)
-      GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-      def trigger_camera(channel):
-        print('taking picture')
-        MyCamera.take_picture()
+    def trigger_camera(channel):
+      print('taking picture')
+      MyCamera.take_picture()
 
-      GPIO.output(18, 1)
-      GPIO.add_event_detect(23, GPIO.RISING, callback=trigger_camera, bouncetime=16000)
+    GPIO.output(18, 1)
+    GPIO.add_event_detect(23, GPIO.RISING, callback=trigger_camera, bouncetime=16000)
 
-      message = input("Press enter to quit\n\n")
-      GPIO.cleanup()
+    message = input("Press enter to quit\n\n")
+    GPIO.cleanup()
     ```
 	
 ----------------------------------------------------------------------
 
 > **To Remote Server**
-
 *// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]
 * mkdir ~/bin
 * cd ~/bin
@@ -368,16 +367,15 @@
 	mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
 	```
 * chmod 770 triggerTensorflow <br/><br/>
-
 *// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
+
 ----------------------------------------------------------------------
 
 > **To Raspberry pi**
 
 * cd ~/python_workspace/project <br/><br/>
-
 *// [trigger remote-server execute the script (triggerTensorflow)]*
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
@@ -405,17 +403,13 @@
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage) <br/><br/>
-
 *// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
 * [vim Identify.py](./python/Identify.py) <br/><br/>
-
 *// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
 * [vim SendMail.py](./python/SendMail.py) <br/><br/>
-
 *// [Let us decide the final classified result]*
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT <br/><br/>
-
 *// [Add this line at the bottom of the file]*
 * vim ~/bin/triggerTensorflow
 
