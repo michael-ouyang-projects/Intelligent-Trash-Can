@@ -311,32 +311,25 @@
 		add your user in group adm, sudo, video and gpio.
 	
 	
-	// check that if your normal user is in those group.
-	* groups {normal-user}
+*// [Check that if your normal user is in those group]*
+* groups {normal-user}
+	``` bash
+	// should show something like this.
+	{normal-user} : {normal-user} adm sudo video gpio nfs
+	```
+
+*// [Enable Camera]
+* sudo raspi-config
+* Interfacing Options => P1 Camera => Yes => Ok => Finish
 	
-		// should show something like this.
-		{normal-user} : {normal-user} adm sudo video gpio nfs
+* mkdir -p ~/python_workspace/project
+* cd ~/python_workspace/project <br/><br/>
 	
-	
-	* enable camera
-	
-		* sudo raspi-config
+*// [Take picture and put it in /mnt/nfs/IoT]*
+* [vim MyCamera.py](./python/MyCamera.py) <br/><br/>
 		
-		* Interfacing Options => P1 Camera => Yes => Ok => Finish
-	
-	
-	* mkdir ~/python_workspace
-	
-	* mkdir ~/python_workspace/project
-	
-	* cd ~/python_workspace/project
-	
-	// take picture and put it in /mnt/nfs/IoT.
-	* [vim MyCamera.py](./python/MyCamera.py)
-		
-	
-	// detect the switch button, execute the trigger method if the button is pressed.
-	* vim PushButton.py
+*// [Detect the switch button, execute the trigger method if the button is pressed]*
+* [vim PushButton.py](./python/PushButton.py)
 		
     ``` python
       import RPi.GPIO as GPIO
@@ -361,20 +354,21 @@
 
 > **To Remote Server**
 
-* create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)
+*// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
 	``` bash
-	  #!/bin/bash
+	#!/bin/bash
 
-	  time=`date "+%Y-%m-%d_%H:%M:%S"`
+	time=`date "+%Y-%m-%d_%H:%M:%S"`
 
-	  /home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
+	/home/{your-normal-user}/miniconda3/bin/python /home/{your-normal-user}/tensorflow/models/tutorials/image/imagenet/classify_image.py --image_file /srv/nfs/IoT/pictures/tmp.jpg > /srv/nfs/IoT/picturesInfo/${time}.txt
 
-	  mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
+	mv /srv/nfs/IoT/pictures/tmp.jpg /srv/nfs/IoT/pictures/${time}.jpg
 	```
 * chmod 770 triggerTensorflow <br/><br/>
+
 *// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
@@ -383,23 +377,24 @@
 > **To Raspberry pi**
 
 * cd ~/python_workspace/project <br/><br/>
+
 *// [trigger remote-server execute the script (triggerTensorflow)]*
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
 	
     ``` python
-      import TriggerRemoteServer
+    import TriggerRemoteServer
 
-      // edit method
-      def trigger_camera(channel):
-        print('taking picture')
-        MyCamera.take_picture()
-        trigger_recognition()
+    // edit method
+    def trigger_camera(channel):
+      print('taking picture')
+      MyCamera.take_picture()
+      trigger_recognition()
 
-      def trigger_recognition():
-        print('start recognition')
-        TriggerRemoteServer.trigger()
-        print('end recognition')
+    def trigger_recognition():
+      print('start recognition')
+      TriggerRemoteServer.trigger()
+      print('end recognition')
     ```
 
 ----------------------------------------------------------------------
@@ -410,20 +405,23 @@
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage) <br/><br/>
+
 *// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
 * [vim Identify.py](./python/Identify.py) <br/><br/>
+
 *// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
 * [vim SendMail.py](./python/SendMail.py) <br/><br/>
+
 *// [Let us decide the final classified result]*
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT <br/><br/>
+
 *// [Add this line at the bottom of the file]*
 * vim ~/bin/triggerTensorflow
 
 	``` bash
-	  /home/michael/miniconda3/bin/python /srv/nfs/IoT/code/Identify.py /srv/nfs/IoT/picturesInfo/${time}.txt /srv/nfs/IoT/pictures/${time}.jpg
-	```
-		
+	/home/michael/miniconda3/bin/python /srv/nfs/IoT/code/Identify.py /srv/nfs/IoT/picturesInfo/${time}.txt /srv/nfs/IoT/pictures/${time}.jpg
+	```	
 	
 ----------------------------------------------------------------------
 
@@ -434,18 +432,17 @@
 * [vim PushButton.py](./python/PushButton.py)
 	
     ``` python
-      import ShowRecognizeResult
+    import ShowRecognizeResult
 
-      GPIO.setup(26, GPIO.OUT)
-      GPIO.setup(16, GPIO.OUT)
-      GPIO.setup(5, GPIO.OUT)
-      GPIO.setup(4, GPIO.OUT)
+    GPIO.setup(26, GPIO.OUT)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.setup(5, GPIO.OUT)
+    GPIO.setup(4, GPIO.OUT)
 
-      // edit method
-      def trigger_recognition():
-        print('start recognition')
-        TriggerRemoteServer.trigger()
-        print('end recognition')
-        ShowRecognizeResult.show()
+    // edit method
+    def trigger_recognition():
+      print('start recognition')
+      TriggerRemoteServer.trigger()
+      print('end recognition')
+      ShowRecognizeResult.show()
     ```
-		
