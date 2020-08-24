@@ -194,32 +194,32 @@
 		}
 		
 		
-* sudo reboot <br/><br/>
+* sudo reboot <br/>
+
 *// [Check that if you are correctly setting your host name]*
 * hostname -f => fqdn-name
-* hostname -s => host-name <br/><br/>
+* hostname -s => host-name <br/>
+
 *// [check that if you are connecting to the WAN]*
-* ping 8.8.8.8 <br/><br/>
+* ping 8.8.8.8 <br/>
+
 *// [Install ssh]*
 * sudo apt-get install openssh-server
-* sudo systemctl restart ssh
-		
-	
-	// we can login in to the remote server with this private key. (don't need to enter the password while using ssh or scp)<br />
-	// run as normal user, do not run as root!<br />
-	* create RSA keys and copy public key to remote server
-	
-		* ssh-keygen -t rsa
-		
-		* press enter three time for default setting (use empty passphrase)
-		
-		* cd ~/.ssh
-		
-		* ssh-copy-id -i id_rsa.pub remote-server-user@remote-server-ip -p remote-server-ssh-port (install public key to remote server [~/.ssh/authorized_keys])
-		
-		// you can now login in to remote server without password after typing this command.
-		* ssh remote-server-user@remote-server-ip -p remote-server-ssh-port
-		
+* sudo systemctl restart ssh <br/>	
+
+*// [Run as normal user, do not run as root!]* <br/>
+*// [Create RSA keys and copy public key to remote server]* <br/>
+*// [We can login in to the remote server with this private key. (don't need to enter the password while using ssh or scp)]*
+* ssh-keygen -t rsa
+	```
+	press enter three time for default setting (use empty passphrase)
+	```
+*// [Install public key to remote server (~/.ssh/authorized_keys)]*
+* cd ~/.ssh
+* ssh-copy-id -i id_rsa.pub remote-server-user@remote-server-ip -p remote-server-ssh-port <br/>
+
+*// [You can now login in to remote server without password after typing this command]*
+* ssh remote-server-user@remote-server-ip -p remote-server-ssh-port <br/>	
 	
 *// [Install nfs client]*
 * sudo apt-get install nfs-common
