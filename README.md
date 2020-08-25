@@ -42,19 +42,19 @@
 
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh
-* sudo ufw allow 22 <br/>
+* sudo ufw allow 22
 
-	*// [You can change the service port in /etc/ssh/sshd_config]*
+  `// You can change the service port in /etc/ssh/sshd_config`
 
 #### Install nfs-server
 
-* sudo apt-get install nfs-kernel-server nfs-common <br/>
+* sudo apt-get install nfs-kernel-server nfs-common
 
-	*// [Create group nfs and add user into the group]*
+  `// Create group nfs and add user into the group`
 * sudo groupadd -g 2049 nfs
 * usermod -aG nfs {your-non-root-user}
 
-	*// [Reload group setting]*
+  `// Reload group setting`
 * Logout && Login 
 
 * sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
@@ -69,24 +69,24 @@
 	```
 
 * sudo systemctl restart nfs-kernel-server
-* sudo ufw allow 111 2049 <br/>
+* sudo ufw allow 111 2049
 
-	*// [Bring up this service during server startup]*
+  `// Bring up this service during server startup`
 * sudo systemctl enable nfs-kernel-server
 
 #### Install miniconda3 (Recommend run as non-root-user)
 
 * cd ~
 * wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-* bash Miniconda3-latest-Linux-x86_64.sh <br/>
+* bash Miniconda3-latest-Linux-x86_64.sh
 
-	*// [You may export path by yourself by edit ~/.bashrc]* <br/>
-	*// [You may edit /etc/environment if you want to set global PATH]*
+  `// You may export path by yourself by edit ~/.bashrc`
+  `// You may edit /etc/environment if you want to set global PATH`
 * Let miniconda3 auto export PATH for you.
 
-* source .bashrc (reload .bashrc) <br/>
+* source .bashrc (reload .bashrc)
 
-	*// [Check that if you are using the right python]*
+  `// [Check that if you are using the right python`
 * which python
 
 	```
@@ -95,13 +95,13 @@
 	```
 
 * conda update conda
-* pip install --upgrade pip <br/>
+* pip install --upgrade pip
 
 #### Install tensorflow (Run as non-root-user if you install miniconda3 as non-root user)
 
-* pip install numpy tensorflow <br/>
+* pip install numpy tensorflow
 
-	*// [Check if those package were correctly installed]*
+  `// Check if those package were correctly installed`
 * pip list | egrep '(numpy|tensorflow)'
 
 	```
@@ -110,13 +110,13 @@
 	tensorflow   1.8.0
 	```
 
-	*// [Clone tensorflow's models]*
+  `// Clone tensorflow's models`
 * sudo apt-get install git
 * mkdir ~/tensorflow
 * cd ~/tensorflow
-* git clone https://github.com/tensorflow/models.git <br/>
+* git clone https://github.com/tensorflow/models.git
 
-	*// [Check that if you can use tensorflow's models correctly]*
+  `// Check that if you can use tensorflow's models correctly`
 * python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
 	
 	```
@@ -146,10 +146,10 @@
 	}
 	```
 
-	*// [Edit Host Name]*
-* sudo vim /etc/hostname <br/>
+  `// Edit host name`
+* sudo vim /etc/hostname
 
-	*// [Edit Network]*	
+  `// Edit network setting`
 * sudo vim /etc/network/interfaces
 	
 	```
@@ -193,43 +193,43 @@
 	}
 	```
 		
-* sudo reboot <br/>
+* sudo reboot
 
-	*// [Check that if you are correctly setting your host name]*
+  `// Check host name`
 * hostname -f => fqdn-name
-* hostname -s => host-name <br/>
+* hostname -s => host-name
 
-	*// [check that if you are connecting to the WAN]*
-* ping 8.8.8.8 <br/>
+  `// Check network status`
+* ping 8.8.8.8
 
 #### Install ssh
 * sudo apt-get install openssh-server
-* sudo systemctl restart ssh <br/>	
+* sudo systemctl restart ssh	
 
-	*// [Run as non-root-user, do not run as Root!]* <br/>
-	*// [Create RSA keys and copy public key to cloud server, then we can login to cloud server using private key. (don't need to enter password while using ssh or scp)]*
+  `// [Run as non-root-user, do not run as Root!`
+  `// [Create RSA keys and copy public key to cloud server, then we can login to cloud server using private key. (don't need to enter password while using ssh or scp)`
 * ssh-keygen -t rsa
 
 	```
 	Press enter three time for default setting (use empty passphrase)
 	```
 	
-	*// [Copy public key to cloud server (~/.ssh/authorized_keys)]*
+  `// Copy public key to cloud server (~/.ssh/authorized_keys)`
 * cd ~/.ssh
-* ssh-copy-id -i id_rsa.pub colud-server-user@colud-server-ip -p colud-server-ssh-port <br/>
+* ssh-copy-id -i id_rsa.pub colud-server-user@colud-server-ip -p colud-server-ssh-port
 
-	*// [You can now login in to cloud server without password after typing below command]*
+  `// You can now login in to cloud server without password after typing below command`
 * ssh colud-server-user@colud-server-ip -p colud-server-ssh-port <br/>	
 	
 #### Install nfs-client
 * sudo apt-get install nfs-common
 * sudo mkdir =p /mnt/nfs/IoT <br/>
 
-	*// [Check that if you are in remote-server's export list]*
+  `// Check that if you are in remote-server's export list`
 * showmount -e colud-server-ip	
 * sudo mount -t nfs colud-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
 		
-	*// [Check that if you are correctly connect to network file system server]*
+  `// Check that if you are correctly connect to network file system server`
 * df -h | grep /mnt/nfs/IoT
 
 	```		
@@ -237,20 +237,20 @@
 	remote-server-ip:/srv/nfs/IoT   28G  6.4G   21G  25% /mnt/nfs/IoT
 	```
 		
-	*// [If you want to auto mount on startup]*
+  `// If you want to auto mount on startup`
 * sudo vim /etc/fstab
 
 	```
 	remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT nfs defaults 0 0
 	```	
 		
-* sudo groupadd -g 2049 nfs <br/>
+* sudo groupadd -g 2049 nfs
 
-	*// [Add user to nfs group]*
+  `// Add user to nfs group`
 * sudo usermod -aG nfs {your-non-root-user}
 * logout && login (refresh the group setting)
 		
-	*// [Check point]*
+  `// Check point`
 * ls -ld /mnt/nfs/IoT
 
 	```
@@ -258,11 +258,12 @@
 	```
 
 #### Install berryconda3 (recommend run as non-root-user)
+
 * cd ~
 * wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
 * bash Berryconda3-2.0.0-Linux-armv7l.sh
 
-  `// [Check that if you are using the right python]`
+  `// Check that if you are using the right python`
 * which python
 
 	```
@@ -273,7 +274,7 @@
 * conda update conda
 * pip install --upgrade pip
 
-  `// Install python packages for our project] (Run as normal user if you install berryconda3 as normal user)`
+  `// Install python packages for our project] (Run as non-root-user if you install berryconda3 as non-root-user)`
 * pip install numpy picamera RPi.GPIO
 
   `// Check that if you are correctly install those package`
@@ -297,7 +298,7 @@
 	{normal-user} : {normal-user} adm sudo video gpio nfs
 	```
 
-  `// [Enable Camera]`
+  `// Enable Camera`
 * sudo raspi-config
 * Interfacing Options => P1 Camera => Yes => Ok => Finish
 
@@ -333,7 +334,7 @@
 
 > **To Cloud Server**
 
-  `// Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)`
+  `// Create script to automatically run tensorflow. (run as non-root-user if you install tensorflow as non-root-user)`
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
