@@ -18,7 +18,7 @@
 	9. if the result is still 'other' after our classification, the buzzer will noise.
 
 	
-## Video
+## Demo Video
 
 [Introduction](https://youtu.be/SRkfxMqJyuk)
 
@@ -56,8 +56,8 @@
 * sudo groupadd -g 2049 nfs
 * usermod -aG nfs {your-non-root-user}
 
-	*// [Refresh group setting]*
-* Logout && Login
+	*// [Reload group setting]*
+* Logout && Login 
 
 * sudo mkdir -p /srv/nfs/IoT/code /srv/nfs/IoT/pictures /srv/nfs/IoT/picturesInfo
 * sudo chown -R root:nfs /srv/nfs/IoT
@@ -65,26 +65,26 @@
 * sudo vim /etc/exports
 
 	```
-	// servers you want to share data with. (you can separate them with blank space.)<br />
-	// if your pi is after NAT, you should add insecure in the brackets in order to allow clients connect via ports that greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure)<br /><br />
+	// Servers you want to share data with. (you can separate them with blank space.)<br />
+	// If your pi is after NAT, you should add insecure in the brackets in order to allow pi connect through ports greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure) <br/><br/>
 	/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
 	```
 
 * sudo systemctl restart nfs-kernel-server
 * sudo ufw allow 111 2049 <br/>
 
-	*// [If you want to bring up this service during server startup]*
+	*// [Bring up this service during server startup]*
 * sudo systemctl enable nfs-kernel-server
 
-#### Install miniconda3 (Recommend run as normal user)
+#### Install miniconda3 (Recommend run as non-root user)
 
 * cd ~
 * wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-* bash Miniconda3-latest-Linux-x86_64.sh
+* bash Miniconda3-latest-Linux-x86_64.sh <br/>
 
-	// you may export path by yourself by edit ~/.bashrc.<br />
-	// you can edit /etc/environment if you want to set global PATH.<br />
-	* let miniconda3 auto export PATH for you.
+	*// [You may export path by yourself by edit ~/.bashrc]* <br/>
+	*// [You may edit /etc/environment if you want to set global PATH]*
+* Let miniconda3 auto export PATH for you.
 
 * source .bashrc (reload .bashrc) <br/>
 
@@ -92,31 +92,33 @@
 * which python
 
 	```
-	// should show something like this.
-	/home/{your-normal-user}/miniconda3/bin/python
+	// Should see something like this.
+	/home/{your-non-root-user}/miniconda3/bin/python
 	```
 
 * conda update conda
 * pip install --upgrade pip <br/>
 
-#### install tensorflow (Run as normal user if you install miniconda3 as normal user)
+#### install tensorflow (Run as non-root user if you install miniconda3 as non-root user)
+
 * pip install numpy tensorflow <br/>
 
-	*// [Check that if you are correctly install those package]*
+	*// [Check if those package were correctly installed]*
 * pip list | egrep '(numpy|tensorflow)'
 
 	```
-	// should show something like this.
+	// should see something like this.
 	numpy        1.14.3
 	tensorflow   1.8.0
 	```
 
+	*// [Clone tensorflow's models]*
 * sudo apt-get install git
 * mkdir ~/tensorflow
 * cd ~/tensorflow
 * git clone https://github.com/tensorflow/models.git <br/>
 
-	*// [Check that if you can create tensorflow's models correctly]*
+	*// [Check that if you can use tensorflow's models correctly]*
 * python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
 	
 	```
@@ -170,16 +172,15 @@
 			}
 
 
-		// sometime raspberry pi won't connect to internet via wifi after startup.<br />
-		// so we can auto re-bring-up the wifi interface or restart networking service right after startup.<br />
+		// Sometime raspberry pi won't connect to internet via wifi after startup, but we can auto re-bring-up the wifi interface or restart networking service right after startup to solve this problem. <br/>
 		* vim /etc/rc.local
 
-			// add one of this at file's bottom right before exit 0.
+			// add one of this at the bottom right before exit 0.
 			1. ifdown wlan0 && ifup wlan0
 			2. systemctl restart networking
 
 
-		// you can scan the available AP using this command.
+		// You can scan the available AP using this command.
 		* iwlist wlan0 scan
 
 	} else {
@@ -213,7 +214,7 @@
 * ssh-keygen -t rsa
 
 	```
-	press enter three time for default setting (use empty passphrase)
+	Press enter three time for default setting (use empty passphrase)
 	```
 	
 	*// [Install public key to remote server (~/.ssh/authorized_keys)]*
