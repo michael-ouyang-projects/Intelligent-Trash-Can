@@ -63,7 +63,7 @@
 * sudo vim /etc/exports
 
 	```
-	// Servers you want to share data with. (you can separate them with blank space.)<br />
+	// Servers you want to share data with. (you can separate them with blank space.)<br/>
 	// If your pi is after NAT, you should add insecure in the brackets in order to allow pi connect through ports greater than 1024. (rw,sync,no_root_squash,no_subtree_check,insecure) <br/><br/>
 	/srv/nfs/IoT   x.x.x.x(rw,sync,no_root_squash,no_subtree_check)
 	```
@@ -206,7 +206,7 @@
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh	
 
-  `// [Run as non-root-user, do not run as Root!`
+  `// [Run as non-root-user, do not run as Root!` <br/>
   `// [Create RSA keys and copy public key to cloud server, then we can login to cloud server using private key. (don't need to enter password while using ssh or scp)`
 * ssh-keygen -t rsa
 
@@ -219,11 +219,11 @@
 * ssh-copy-id -i id_rsa.pub colud-server-user@colud-server-ip -p colud-server-ssh-port
 
   `// You can now login in to cloud server without password after typing below command`
-* ssh colud-server-user@colud-server-ip -p colud-server-ssh-port <br/>	
+* ssh colud-server-user@colud-server-ip -p colud-server-ssh-port
 	
 #### Install nfs-client
 * sudo apt-get install nfs-common
-* sudo mkdir =p /mnt/nfs/IoT <br/>
+* sudo mkdir =p /mnt/nfs/IoT
 
   `// Check that if you are in remote-server's export list`
 * showmount -e colud-server-ip	
