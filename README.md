@@ -1,6 +1,6 @@
 # Intelligent-Trash-Can
 
-![alt text](../master/Intelligent-Trash-Can.jpg "Product Image")
+![alt text](./photo/Intelligent-Trash-Can.jpg "Product Image")
 
 ## Introduction
 
