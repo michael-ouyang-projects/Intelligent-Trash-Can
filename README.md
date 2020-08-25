@@ -97,7 +97,7 @@
 * conda update conda
 * pip install --upgrade pip <br/>
 
-#### install tensorflow (Run as non-root user if you install miniconda3 as non-root user)
+#### Install tensorflow (Run as non-root user if you install miniconda3 as non-root user)
 
 * pip install numpy tensorflow <br/>
 
@@ -159,7 +159,7 @@
 		iface wlan0 inet (static || dhcp)
 		wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
-
+		// Set the connection info
 		* vim /etc/wpa_supplicant/wpa_supplicant.conf
 
 			network={
@@ -170,7 +170,7 @@
 			}
 
 
-		// Sometime raspberry pi won't connect to internet via wifi after startup, but we can auto re-bring-up the wifi interface or restart networking service right after startup to solve this problem. <br/>
+		// Sometime Pi won't connect to internet via wifi after startup, but we can auto re-bring-up the wifi interface or restart networking service right after startup to solve this problem. <br/>
 		* vim /etc/rc.local
 
 			// add one of this at the bottom right before exit 0.
