@@ -304,10 +304,10 @@
 * mkdir -p ~/python_workspace/project
 * cd ~/python_workspace/project <br/>
 
-	*// [Take picture and put it in /mnt/nfs/IoT]*
+`// [Take picture and put it in /mnt/nfs/IoT]`
 * [vim MyCamera.py](./python/MyCamera.py) <br/>
 
-	*// [Detect the switch button, execute the trigger method if the button is pressed]*
+`// [Detect the switch button, execute the trigger method if the button is pressed]`
 * [vim PushButton.py](./python/PushButton.py)
 		
     ``` python
@@ -333,7 +333,7 @@
 
 > **To Cloud Server**
 
-	*// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]*
+`// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]`
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
@@ -350,7 +350,7 @@
 
 * chmod 770 triggerTensorflow <br/>
 
-	*// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]*
+`// [Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)]`
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
 
@@ -360,7 +360,7 @@
 
 * cd ~/python_workspace/project <br/>
 
-	*// [trigger remote-server execute the script (triggerTensorflow)]*
+`// [trigger remote-server execute the script (triggerTensorflow)]`
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
 	
@@ -386,17 +386,17 @@
 * cd /srv/nfs/IoT/code
 * [vim bottle](./bash/bottle)
 * [vim beveragePack](./bash/beveragePack)	
-* [vim generalGarbage](./bash/generalGarbage) <br/>
+* [vim generalGarbage](./bash/generalGarbage)
 
-	*// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]*
-* [vim Identify.py](./python/Identify.py) <br/>
+`// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]`
+* [vim Identify.py](./python/Identify.py)
 
-	*// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]*
-* [vim SendMail.py](./python/SendMail.py) <br/>
+`// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]`
+* [vim SendMail.py](./python/SendMail.py)
 
-	*// [Let us decide the final classified result]*
+`// [Let us decide the final classified result]`
 * [vim FetchMail.py](./python/FetchMail.py)	
-* sudo chown -R root:nfs /srv/nfs/IoT <br/>
+* sudo chown -R root:nfs /srv/nfs/IoT
 
 `// [Add this line at the bottom of the file]`
 * vim ~/bin/triggerTensorflow
