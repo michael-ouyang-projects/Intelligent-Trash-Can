@@ -388,17 +388,17 @@
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage)
 
-`// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]`
+	`// [Classify image by keywords and write the classified result in /srv/nfs/IoT/result]`
 * [vim Identify.py](./python/Identify.py)
 
-`// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]`
+	`// [Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to]`
 * [vim SendMail.py](./python/SendMail.py)
 
-`// [Let us decide the final classified result]`
+	`// [Let us decide the final classified result]`
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT
 
-`// [Add this line at the bottom of the file]`
+	`// [Add this line at the bottom of the file]`
 * vim ~/bin/triggerTensorflow
 
 	``` bash
