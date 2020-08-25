@@ -36,7 +36,7 @@
 	
 ## Development Process
 
-> **Remote Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
+> **Cloud Server (x86_64 GNU/Linux 4.4.0-116-generic) (Ubuntu 16.04.4 LTS xenial)**
 
 #### Install ssh
 
@@ -74,7 +74,7 @@
 	*// [Bring up this service during server startup]*
 * sudo systemctl enable nfs-kernel-server
 
-#### Install miniconda3 (Recommend run as non-root user)
+#### Install miniconda3 (Recommend run as non-root-user)
 
 * cd ~
 * wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -97,7 +97,7 @@
 * conda update conda
 * pip install --upgrade pip <br/>
 
-#### Install tensorflow (Run as non-root user if you install miniconda3 as non-root user)
+#### Install tensorflow (Run as non-root-user if you install miniconda3 as non-root user)
 
 * pip install numpy tensorflow <br/>
 
@@ -202,33 +202,32 @@
 	*// [check that if you are connecting to the WAN]*
 * ping 8.8.8.8 <br/>
 
-	*// [Install ssh]*
+#### Install ssh
 * sudo apt-get install openssh-server
 * sudo systemctl restart ssh <br/>	
 
-	*// [Run as normal user, do not run as root!]* <br/>
-	*// [Create RSA keys and copy public key to remote server]* <br/>
-	*// [We can login in to the remote server with this private key. (don't need to enter the password while using ssh or scp)]*
+	*// [Run as non-root-user, do not run as Root!]* <br/>
+	*// [Create RSA keys and copy public key to cloud server, then we can login to cloud server using private key. (don't need to enter password while using ssh or scp)]*
 * ssh-keygen -t rsa
 
 	```
 	Press enter three time for default setting (use empty passphrase)
 	```
 	
-	*// [Install public key to remote server (~/.ssh/authorized_keys)]*
+	*// [Copy public key to cloud server (~/.ssh/authorized_keys)]*
 * cd ~/.ssh
-* ssh-copy-id -i id_rsa.pub remote-server-user@remote-server-ip -p remote-server-ssh-port <br/>
+* ssh-copy-id -i id_rsa.pub colud-server-user@colud-server-ip -p colud-server-ssh-port <br/>
 
-	*// [You can now login in to remote server without password after typing this command]*
-* ssh remote-server-user@remote-server-ip -p remote-server-ssh-port <br/>	
+	*// [You can now login in to cloud server without password after typing below command]*
+* ssh colud-server-user@colud-server-ip -p colud-server-ssh-port <br/>	
 	
-	*// [Install nfs client]*
+#### Install nfs-client
 * sudo apt-get install nfs-common
 * sudo mkdir =p /mnt/nfs/IoT <br/>
 
 	*// [Check that if you are in remote-server's export list]*
-* showmount -e remote-server-ip	
-* sudo mount -t nfs remote-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
+* showmount -e colud-server-ip	
+* sudo mount -t nfs colud-server-ip:/srv/nfs/IoT /mnt/nfs/IoT
 		
 	*// [Check that if you are correctly connect to network file system server]*
 * df -h | grep /mnt/nfs/IoT
@@ -248,7 +247,7 @@
 * sudo groupadd -g 2049 nfs <br/>
 
 	*// [Add user to nfs group]*
-* sudo usermod -aG nfs {your-normal-user}
+* sudo usermod -aG nfs {your-non-root-user}
 * logout && login (refresh the group setting)
 		
 	*// [Check point]*
@@ -258,7 +257,7 @@
 	drwxrwxr-x 3 root nfs 4096 Jun 12 02:31 /mnt/nfs/IoT
 	```
 
-	*// [Install berryconda3 (recommend run as normal user)]*
+#### Install berryconda3 (recommend run as non-root-user)
 * cd ~
 * wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
 * bash Berryconda3-2.0.0-Linux-armv7l.sh <br/>
@@ -332,7 +331,7 @@
 	
 ----------------------------------------------------------------------
 
-> **To Remote Server**
+> **To Cloud Server**
 
 	*// [Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)]*
 * mkdir ~/bin
@@ -357,7 +356,7 @@
 
 ----------------------------------------------------------------------
 
-> **To Raspberry pi**
+> **To Pi**
 
 * cd ~/python_workspace/project <br/>
 
@@ -382,7 +381,7 @@
 
 ----------------------------------------------------------------------
 			
-> **To Remote Server**
+> **To Cloud Server**
 
 * cd /srv/nfs/IoT/code
 * [vim bottle](./bash/bottle)
@@ -408,7 +407,7 @@
 	
 ----------------------------------------------------------------------
 
-> **To Raspberry pi**
+> **To Pi**
 
 * cd ~/python_workspace/project
 * [vim ShowRecognizeResult.py](./python/ShowRecognizeResult.py)
