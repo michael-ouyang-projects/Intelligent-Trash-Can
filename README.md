@@ -90,7 +90,7 @@
 * which python
 
 	```
-	// Should see something like this.
+	(Should see something like below)
 	/home/{your-non-root-user}/miniconda3/bin/python
 	```
 
@@ -105,7 +105,7 @@
 * pip list | egrep '(numpy|tensorflow)'
 
 	```
-	// should see something like this.
+	(Should see something like below)
 	numpy        1.14.3
 	tensorflow   1.8.0
 	```
@@ -120,7 +120,7 @@
 * python ~/tensorflow/models/tutorials/image/imagenet/classify_image.py
 	
 	```
-	// you should get some tags and scores.
+	Should get some tags and scores
 	```
 		
 ----------------------------------------------------------------------
