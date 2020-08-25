@@ -262,7 +262,7 @@
 * wget https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh
 * bash Berryconda3-2.0.0-Linux-armv7l.sh
 
-	`// [Check that if you are using the right python]`
+  `// [Check that if you are using the right python]`
 * which python
 
 	```
@@ -273,10 +273,10 @@
 * conda update conda
 * pip install --upgrade pip
 
-	`// Install python packages for our project] (Run as normal user if you install berryconda3 as normal user)`
+  `// Install python packages for our project] (Run as normal user if you install berryconda3 as normal user)`
 * pip install numpy picamera RPi.GPIO
 
-	`// Check that if you are correctly install those package`
+  `// Check that if you are correctly install those package`
 * pip list | egrep '(numpy|picamera|RPi.GPIO)'
 
 	```
@@ -286,10 +286,10 @@
 	RPi.GPIO     0.6.3
 	```
 	
-	`// If you are not using 'pi' as your normal user, add your user to group adm, sudo, video and gpio`
+  `// If you are not using 'pi' as your normal user, add your user to group adm, sudo, video and gpio`
 * sudo vim /etc/group
 
-	`// Check that if your normal user is in those group`
+  `// Check that if your normal user is in those group`
 * groups {normal-user}
 
 	``` bash
@@ -297,17 +297,17 @@
 	{normal-user} : {normal-user} adm sudo video gpio nfs
 	```
 
-	`// [Enable Camera]`
+  `// [Enable Camera]`
 * sudo raspi-config
 * Interfacing Options => P1 Camera => Yes => Ok => Finish
 
 * mkdir -p ~/python_workspace/project
 * cd ~/python_workspace/project
 
-	`// Take picture and put it in /mnt/nfs/IoT`
+  `// Take picture and put it in /mnt/nfs/IoT`
 * [vim MyCamera.py](./python/MyCamera.py)
 
-	`// Detect the switch button, execute the trigger method if the button is pressed`
+  `// Detect the switch button, execute the trigger method if the button is pressed`
 * [vim PushButton.py](./python/PushButton.py)
 		
     ``` python
@@ -333,7 +333,7 @@
 
 > **To Cloud Server**
 
-	`// Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)`
+  `// Create script to automatically run tensorflow. (run as normal user if you install tensorflow as normal user)`
 * mkdir ~/bin
 * cd ~/bin
 * vim triggerTensorflow
@@ -350,7 +350,7 @@
 
 * chmod 770 triggerTensorflow
 
-	`// Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)`
+  `// Because we create our shell script in ~/bin, so we don't need to update the path. (check it with below command)`
 * echo $PATH | grep "/home/{your-normal-user}/bin"
 * which triggerTensorflow
 
@@ -360,7 +360,7 @@
 
 * cd ~/python_workspace/project
 
-	`// trigger remote-server execute the script (triggerTensorflow)`
+  `// trigger remote-server execute the script (triggerTensorflow)`
 * [vim TriggerRemoteServer.py](./python/TriggerRemoteServer.py)
 * [vim PushButton.py](./python/PushButton.py)
 	
@@ -388,17 +388,17 @@
 * [vim beveragePack](./bash/beveragePack)	
 * [vim generalGarbage](./bash/generalGarbage)
 
-	`// Classify image by keywords and write the classified result in /srv/nfs/IoT/result`
+  `// Classify image by keywords and write the classified result in /srv/nfs/IoT/result`
 * [vim Identify.py](./python/Identify.py)
 
-	`// Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to`
+  `// Notify us if the classified result is 'other'. I use my own mail server to send mail, you can use gmail if you want to`
 * [vim SendMail.py](./python/SendMail.py)
 
-`// Let us decide the final classified result`
+  `// Let us decide the final classified result`
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT
 
- `// Add this line at the bottom of the file`
+  `// Add this line at the bottom of the file`
 * vim ~/bin/triggerTensorflow
 
 	``` bash
