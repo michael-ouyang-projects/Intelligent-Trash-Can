@@ -398,7 +398,7 @@
 * [vim FetchMail.py](./python/FetchMail.py)	
 * sudo chown -R root:nfs /srv/nfs/IoT <br/>
 
-	*// [Add this line at the bottom of the file]*
+`// [Add this line at the bottom of the file]`
 * vim ~/bin/triggerTensorflow
 
 	``` bash
