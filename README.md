@@ -1,21 +1,19 @@
 # Intelligent-Trash-Can
 
-![alt text](./photo/Intelligent-Trash-Can.jpg "Product Image")
+![alt text](./photo/Intelligent-Trash-Can.jpg "Demo Image")
 
 ## Introduction
 
-	This is an 'Intelligent Trash Can' that can classify garbage to three groups(bottle, beveragePack and generalGarbage).
+	This is an 'Intelligent-Trash-Can' that can classify garbage to three groups (bottle, beveragePack and generalGarbage).
 
-	0. press the switch button, it will trigger the camera.
-	1. use camera to take the picture of garbage.
-	2. send the picture to cloud server.
-	3. cloud server will use tensorflow api to classify image and get some tags.
-	4. cloud server will use those tags to do classification and get the result.
-	5. if the result is other, it will send email(with the image) to us first. 
-	6. we can classify it by ourself and return the result to cloud server by replying the email.
-	7. cloud server will return the result to raspberry pi.
-	8. raspberry pi will blink the corresponding led light to tell the user which trash can to throw the garbage.
-	9. if the result is still 'other' after our classification, the buzzer will noise.
+	1. Press the switch button, it will trigger the camera which connect with Pi to take the picture of garbage.
+	2. Pi will then send the picture to cloud-server.
+	3. Cloud server will use tensorflow api to classify image to one of the garbage group.
+	4. If cloud server couldn't do the classification, it will send email(with the image) to us.
+	5. We can classify it by ourself and return the result to cloud server by replying the email.
+	6. Cloud server will return the result to Pi.
+	7. Pi will blink the corresponding LED light telling user which garbage groups can be throw to.
+	8. If the result is still 'Other' after our classification, the buzzer will noise.
 
 	
 ## Demo Video
@@ -27,13 +25,13 @@
 	
 ## Requirement
 
+	Cloud Server * 1
 	Raspberry pi * 1
 	Breadboard * 1
 	Camera * 1
-	led lights * 3
-	buzzer * 1
-	some jumper cable
-	Cloud Server * 1
+	LED lights * 3
+	Buzzer * 1
+	Jumper Cable * N
 	
 	
 ## Development Process
