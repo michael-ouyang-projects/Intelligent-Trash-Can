@@ -9,20 +9,6 @@
 	1.	When we press the switch button, it will trigger the camera to take a picture of trash. Because the camera connects to Pi, it will then send the picture to the cloud server. The cloud server will use tensorflow api to classify the image to one of the garbage groups.
 	2.	If the cloud server cannot categorize the item, it will send an email with the image to us. We can classify the image by ourselves and return the result to the cloud server by replying to the email. The cloud server will return the result to Pi which will blink the corresponding LED light, telling the user which garbage group can be thrown.
 	3.	If we also have difficulty categorizing the image, we can reply to the email with the word "Other." Then, the buzzer will ring.
-
--------------------------
-
-	This is an 'Intelligent-Trash-Can' that can classify garbage to three groups (bottle, beveragePack and generalGarbage).
-
-	1. Press the switch button, it will trigger the camera which connect with Pi to take the picture of garbage.
-	2. Pi will then send the picture to cloud-server.
-	3. Cloud server will use tensorflow api to classify image to one of the garbage group.
-	4. If cloud server couldn't do the classification, it will send email(with the image) to us.
-	5. We can classify it by ourself and return the result to cloud server by replying the email.
-	6. Cloud server will return the result to Pi.
-	7. Pi will blink the corresponding LED light telling user which garbage groups can be throw to.
-	8. If the result is still 'Other' after our classification, the buzzer will noise.
-
 	
 ## Demo Video
 
